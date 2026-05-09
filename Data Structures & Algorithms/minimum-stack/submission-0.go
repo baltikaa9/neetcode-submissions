@@ -1,0 +1,36 @@
+type MinStack struct {
+	vals []int
+	mins []int
+}
+
+func Constructor() MinStack {
+	return MinStack{}
+}
+
+func (this *MinStack) Push(val int) {
+	this.vals = append(this.vals, val)
+
+	if len(this.mins) == 0 || val <= this.mins[len(this.mins)-1] {
+		this.mins = append(this.mins, val)
+	}
+}
+
+func (this *MinStack) Pop() {
+	if len(this.vals) > 0 {
+		if this.vals[len(this.vals)-1] == this.mins[len(this.mins)-1] {
+			this.mins = this.mins[:len(this.mins)-1]
+		}
+		this.vals = this.vals[:len(this.vals)-1]
+	}
+}
+
+func (this *MinStack) Top() int {
+	if len(this.vals) > 0 {
+		return this.vals[len(this.vals)-1]
+	}
+	return 0
+}
+
+func (this *MinStack) GetMin() int {
+	return this.mins[len(this.mins)-1]
+}
